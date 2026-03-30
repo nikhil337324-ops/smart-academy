@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Computer Academy — Pimpri</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #1a237e;
+    --accent: #e53935;
+    --gold: #ffb300;
+    --light: #e8eaf6;
+    --white: #ffffff;
+    --dark: #0d0d2b;
+    --text: #333355;
+    --card-bg: #f5f7ff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: var(--primary);
+    padding: 14px 5%;
+    display: flex; justify-content: space-between; align-items: center;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+  .nav-logo {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.5rem; font-weight: 700;
+    color: var(--white);
+    letter-spacing: 1px;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none; font-weight: 600; font-size: 0.95rem;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--accent); color: white;
+    padding: 8px 20px; border-radius: 25px;
+    text-decoration: none; font-weight: 700; font-size: 0.9rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 12px rgba(229,57,53,0.4);
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(229,57,53,0.5); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 60%, #283593 100%);
+    display: flex; align-items: center;
+    padding: 100px 5% 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -100px; right: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(255,179,0,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -80px; left: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(229,57,53,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-content { max-width: 680px; z-index: 1; animation: fadeUp 0.8s ease; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,179,0,0.15);
+    border: 1px solid rgba(255,179,0,0.4);
+    color: var(--gold);
+    padding: 6px 16px; border-radius: 20px;
+    font-size: 0.85rem; font-weight: 700;
+    margin-bottom: 24px; letter-spacing: 0.5px;
+  }
+  .hero h1 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 700; color: var(--white);
+    line-height: 1.15; margin-bottom: 16px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero p {
+    font-size: 1.1rem; color: rgba(255,255,255,0.8);
+    line-height: 1.7; margin-bottom: 32px; max-width: 540px;
+  }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent);
+    color: white; padding: 14px 32px;
+    border-radius: 30px; text-decoration: none;
+    font-weight: 800; font-size: 1rem;
+    box-shadow: 0 6px 20px rgba(229,57,53,0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(229,57,53,0.5); }
+  .btn-secondary {
+    background: transparent;
+    color: white; padding: 14px 32px;
+    border-radius: 30px; text-decoration: none;
+    font-weight: 700; font-size: 1rem;
+    border: 2px solid rgba(255,255,255,0.4);
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: white; background: rgba(255,255,255,0.1); }
+
+  .hero-stats {
+    display: flex; gap: 40px; margin-top: 48px; flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2rem; font-weight: 700; color: var(--gold);
+    display: block;
+  }
+  .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.65); font-weight: 600; }
+
+  /* OFFER BANNER */
+  .offer-banner {
+    background: linear-gradient(90deg, var(--accent), #c62828);
+    color: white; text-align: center;
+    padding: 16px; font-size: 1rem; font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .offer-banner span { color: var(--gold); font-size: 1.2rem; }
+
+  /* SECTIONS */
+  section { padding: 80px 5%; }
+  .section-title {
+    text-align: center; margin-bottom: 56px;
+  }
+  .section-tag {
+    display: inline-block;
+    background: var(--light); color: var(--primary);
+    padding: 4px 16px; border-radius: 20px;
+    font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .section-title h2 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 700; color: var(--primary);
+  }
+  .section-title p { color: #666; font-size: 1rem; margin-top: 10px; }
+  .underline {
+    width: 60px; height: 4px;
+    background: linear-gradient(90deg, var(--accent), var(--gold));
+    border-radius: 2px; margin: 12px auto 0;
+  }
+
+  /* WHY US */
+  .why-us { background: var(--card-bg); }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+  }
+  .feature-card {
+    background: white; border-radius: 16px;
+    padding: 28px 24px; text-align: center;
+    box-shadow: 0 4px 20px rgba(26,35,126,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-top: 4px solid transparent;
+    border-image: linear-gradient(90deg, var(--primary), var(--accent)) 1;
+  }
+  .feature-card:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(26,35,126,0.15); }
+  .feature-icon {
+    font-size: 2.5rem; margin-bottom: 16px; display: block;
+  }
+  .feature-card h3 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.2rem; font-weight: 700;
+    color: var(--primary); margin-bottom: 8px;
+  }
+  .feature-card p { font-size: 0.9rem; color: #777; line-height: 1.6; }
+
+  /* COURSES */
+  .courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+  .course-category {
+    background: white; border-radius: 16px;
+    padding: 28px; border: 1px solid #e8eaf6;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+    transition: transform 0.3s;
+  }
+  .course-category:hover { transform: translateY(-4px); }
+  .cat-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 16px;
+  }
+  .cat-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+  }
+  .cat-header h3 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.15rem; font-weight: 700; color: var(--primary);
+  }
+  .course-list { list-style: none; }
+  .course-list li {
+    padding: 7px 0; font-size: 0.9rem; color: #555;
+    border-bottom: 1px dashed #eee;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .course-list li:last-child { border-bottom: none; }
+  .course-list li::before { content: '→'; color: var(--accent); font-weight: 700; }
+
+  /* ABOUT */
+  .about { background: var(--primary); color: white; }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+  }
+  .about h2 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2.2rem; font-weight: 700;
+    color: var(--gold); margin-bottom: 20px;
+  }
+  .about p { color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 16px; }
+  .about-badges { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+  .badge {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white; padding: 8px 16px; border-radius: 25px;
+    font-size: 0.85rem; font-weight: 700;
+  }
+  .about-points { list-style: none; }
+  .about-points li {
+    padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex; align-items: center; gap: 12px;
+    color: rgba(255,255,255,0.85); font-size: 0.95rem;
+  }
+  .about-points li span { font-size: 1.3rem; }
+
+  /* CONTACT */
+  .contact { background: var(--card-bg); }
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start;
+  }
+  .contact-info h3 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.8rem; font-weight: 700; color: var(--primary); margin-bottom: 24px;
+  }
+  .contact-item {
+    display: flex; align-items: flex-start; gap: 16px;
+    margin-bottom: 20px; padding: 16px;
+    background: white; border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+  .contact-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: var(--primary); color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0;
+  }
+  .contact-text strong { display: block; color: var(--primary); font-size: 0.85rem; margin-bottom: 2px; }
+  .contact-text span { color: #555; font-size: 0.95rem; }
+  .demo-box {
+    background: linear-gradient(135deg, var(--primary), #283593);
+    border-radius: 20px; padding: 36px;
+    text-align: center; color: white;
+  }
+  .demo-box h3 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.8rem; font-weight: 700; color: var(--gold); margin-bottom: 12px;
+  }
+  .demo-box p { color: rgba(255,255,255,0.8); margin-bottom: 24px; line-height: 1.7; }
+  .demo-btn {
+    display: inline-block;
+    background: var(--accent); color: white;
+    padding: 14px 36px; border-radius: 30px;
+    text-decoration: none; font-weight: 800; font-size: 1.05rem;
+    box-shadow: 0 6px 20px rgba(229,57,53,0.4);
+    transition: transform 0.2s;
+  }
+  .demo-btn:hover { transform: scale(1.05); }
+  .discount-tag {
+    display: inline-block;
+    background: var(--gold); color: var(--dark);
+    padding: 6px 20px; border-radius: 20px;
+    font-weight: 800; font-size: 1.1rem; margin-bottom: 16px;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark); color: rgba(255,255,255,0.6);
+    text-align: center; padding: 28px 5%;
+    font-size: 0.9rem;
+  }
+  footer strong { color: var(--gold); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+    .hero-stats { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SMART <span>ACADEMY</span></div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <a href="courses.html">View Courses →</a>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="tel:7710088851" class="nav-cta">📞 Call Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-badge">🏆 Government Recognized &nbsp;|&nbsp; ISO 9001:2008 Certified</div>
+    <h1>Your Knowledge is the<br><span>Way to Your Success</span></h1>
+    <p>Pimpri's most trusted computer training institute. Learn in-demand skills with expert faculty and practical training — and get job-ready!</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">🎓 Free Demo Class</a>
+      <a href="#courses" class="btn-secondary">View Courses →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">15+</span><span class="stat-label">Courses</span></div>
+      <div class="stat"><span class="stat-num">50%</span><span class="stat-label">Discount</span></div>
+      <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Practical Training</span></div>
+      <div class="stat"><span class="stat-num">ISO</span><span class="stat-label">Certified</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER BANNER -->
+<div class="offer-banner">
+  🔥 LIMITED TIME OFFER — <span>50% DISCOUNT</span> on All Courses! Call Now: <span>7710088851</span>
+</div>
+
+<!-- WHY US -->
+<section class="why-us">
+  <div class="section-title">
+    <div class="section-tag">Why Choose Us</div>
+    <h2>What Makes Us Different</h2>
+    <div class="underline"></div>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <span class="feature-icon">🏛️</span>
+      <h3>Government Recognized</h3>
+      <p>Officially recognized institute with valid certifications accepted everywhere.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🎖️</span>
+      <h3>ISO 9001:2008 Certified</h3>
+      <p>Quality education standards maintained as per international guidelines.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">👨‍🏫</span>
+      <h3>Expert Faculty</h3>
+      <p>Experienced teachers with industry knowledge providing personal attention.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">💻</span>
+      <h3>Practical Training</h3>
+      <p>Hands-on learning approach that makes students job-ready from day one.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">💰</span>
+      <h3>Affordable Fees</h3>
+      <p>Quality education at the most affordable prices with flexible payment options.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🚀</span>
+      <h3>Job Assistance</h3>
+      <p>We help students get placed after course completion with guidance and support.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section id="courses">
+  <div class="section-title">
+    <div class="section-tag">Our Courses</div>
+    <h2>15+ Professional Courses</h2>
+    <p>Choose the course that matches your career goal</p>
+    <div class="underline"></div>
+  </div>
+  <div class="courses-grid">
+    <div class="course-category">
+      <div class="cat-header">
+        <div class="cat-icon" style="background:#e8eaf6;">💻</div>
+        <h3>Programming</h3>
+      </div>
+      <ul class="course-list">
+        <li>C, C++</li>
+        <li>Java Core & Java Advance</li>
+        <li>Python</li>
+        <li>.NET</li>
+        <li>SQL Server</li>
+      </ul>
+    </div>
+    <div class="course-category">
+      <div class="cat-header">
+        <div class="cat-icon" style="background:#fff3e0;">📊</div>
+        <h3>Office & Accounting</h3>
+      </div>
+      <ul class="course-list">
+        <li>Basic Computer</li>
+        <li>Tally Prime</li>
+        <li>Tally EPR-9</li>
+        <li>Advanced MS Excel</li>
+        <li>Master Advance MS Excel</li>
+      </ul>
+    </div>
+    <div class="course-category">
+      <div class="cat-header">
+        <div class="cat-icon" style="background:#fce4ec;">🎨</div>
+        <h3>Design & Marketing</h3>
+      </div>
+      <ul class="course-list">
+        <li>Web Designing</li>
+        <li>Graphic Designing</li>
+        <li>Digital Marketing</li>
+      </ul>
+    </div>
+    <div class="course-category">
+      <div class="cat-header">
+        <div class="cat-icon" style="background:#e8f5e9;">🤖</div>
+        <h3>Data & AI</h3>
+      </div>
+      <ul class="course-list">
+        <li>AI (Artificial Intelligence)</li>
+        <li>Power BI</li>
+        <li>Tableau</li>
+      </ul>
+    </div>
+    <div class="course-category">
+      <div class="cat-header">
+        <div class="cat-icon" style="background:#e3f2fd;">🌐</div>
+        <h3>Networking & Hardware</h3>
+      </div>
+      <ul class="course-list">
+        <li>Hardware Networking</li>
+        <li>IT Commerce</li>
+        <li>IT Science</li>
+      </ul>
+    </div>
+    <div class="course-category">
+      <div class="cat-header">
+        <div class="cat-icon" style="background:#f3e5f5;">🗣️</div>
+        <h3>Language</h3>
+      </div>
+      <ul class="course-list">
+        <li>English Speaking</li>
+        <li>Grammar & Vocabulary</li>
+        <li>Interview Techniques</li>
+        <li>Personality Development</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div>
+      <h2>About Smart Computer Academy</h2>
+      <p>Smart Computer Academy is a Government Recognized & ISO 9001:2008 Certified institute located in Pimpri Market. We were established with a vision to provide quality computer education at affordable prices.</p>
+      <p>Our experienced faculty ensures every student gets personal attention and practical knowledge. Whether you are a school student, college student, job seeker, or working professional — we have the perfect course for you.</p>
+      <div class="about-badges">
+        <span class="badge">🏛️ Govt. Recognized</span>
+        <span class="badge">🎖️ ISO Certified</span>
+        <span class="badge">💼 Job Assistance</span>
+        <span class="badge">📍 Pimpri Market</span>
+      </div>
+    </div>
+    <div>
+      <ul class="about-points">
+        <li><span>✅</span> Government Recognized Institute</li>
+        <li><span>✅</span> ISO 9001:2008 Certified Academy</li>
+        <li><span>✅</span> Experienced & Qualified Faculty</li>
+        <li><span>✅</span> Practical Based Training</li>
+        <li><span>✅</span> Affordable Fees for Everyone</li>
+        <li><span>✅</span> Job Assistance Provided</li>
+        <li><span>✅</span> Flexible Batch Timings</li>
+        <li><span>✅</span> Individual Attention to Students</li>
+        <li><span>✅</span> Certificate on Course Completion</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-title">
+    <div class="section-tag">Contact Us</div>
+    <h2>Get In Touch</h2>
+    <div class="underline"></div>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h3>We're Here to Help!</h3>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div class="contact-text">
+          <strong>ADDRESS</strong>
+          <span>Smart Computer Academy, Pimpri Market, Pimpri, Maharashtra</span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div class="contact-text">
+          <strong>PHONE</strong>
+          <span>7710088851 / 9867621619</span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">💬</div>
+        <div class="contact-text">
+          <strong>WHATSAPP</strong>
+          <span>7710088851</span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">⏰</div>
+        <div class="contact-text">
+          <strong>TIMINGS</strong>
+          <span>Monday – Saturday: 9:00 AM – 8:00 PM</span>
+        </div>
+      </div>
+    </div>
+    <div class="demo-box">
+      <div class="discount-tag">🔥 50% DISCOUNT</div>
+      <h3>Book Your FREE Demo Class!</h3>
+      <p>Not sure which course is right for you? Come for a FREE demo class and decide for yourself. No obligation, no pressure!</p>
+      <a href="tel:7710088851" class="demo-btn">📞 Call: 7710088851</a>
+      <br><br>
+      <a href="https://wa.me/917710088851" class="demo-btn" style="background:#25D366; box-shadow: 0 6px 20px rgba(37,211,102,0.4);">💬 WhatsApp Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 <strong>Smart Computer Academy</strong> — Pimpri Market, Maharashtra | All Rights Reserved</p>
+  <p style="margin-top:8px;">📞 7710088851 &nbsp;|&nbsp; 🏛️ Government Recognized &nbsp;|&nbsp; 🎖️ ISO 9001:2008 Certified</p>
+</footer>
+
+</body>
+</html>
